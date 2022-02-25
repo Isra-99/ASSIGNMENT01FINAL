@@ -42,8 +42,8 @@ public class NewSteps {
         sunscreens.addLowPriceSpf50(driver);
         /// Adding selected items to the cart
         sunscreens.clickAddToCartButton(driver);
-        Checkout checkout = new Checkout(driver);
-        checkout.checkIfPopulatedCorrectly(driver);
+        //Checkout checkout = new Checkout(driver);
+       // checkout.checkIfPopulatedCorrectly(driver);
     }
 
     @Then("Checkout should be successful")

@@ -42,7 +42,7 @@ public class Sunscreens {
         String item2  = text2.getText();
         return item2;
     }
-    public  static  ArrayList<String> displaySelectedItem(WebDriver driver){
+  /*  public  static  ArrayList<String> displaySelectedItem(WebDriver driver){
         String item1 = checkSelectedItem1(driver);
         String item2 = checkSelectedItem2(driver);
         ArrayList<String> list= new ArrayList<String>();
@@ -51,7 +51,7 @@ public class Sunscreens {
         System.out.println("So the items added to the car are :");
         System.out.println(list);
         return list;
-    }
+    }*/
 
 
 
