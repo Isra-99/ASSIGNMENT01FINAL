@@ -1,31 +1,42 @@
-package weatherApplication;
+package StepDefinition;
 
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
 import weatherApplication.tasks.Checkout;
 import weatherApplication.tasks.MainPage;
 import weatherApplication.tasks.Sunscreens;
-public class TemperatureTests {
+
+public class NewSteps {
     private WebDriver driver;
-    @BeforeTest
-    public void launchBrowser() {
-        /// Launching Chrome Browser and opening the website
+    @Given("User is on the weather app")
+    public void user_is_on_the_weather_app() {
         System.setProperty("webdriver.chrome.driver","resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://weathershopper.pythonanywhere.com/");
         driver.manage().window().maximize();
     }
-    @Test
-    public void startTest(){
 
-        //// now testing from main page
+    @When("User reads the temperature and decides what to shop")
+    public void user_reads_the_temperature_and_decides_what_to_shop() {
         MainPage mainPage  = new MainPage(driver);
-        /// By calling decision either sunscreen page or moisture page will be opened depending on the temperature
+        mainPage.readTemperature();
         mainPage.decision(driver);
-        /// If it is Sunscreen page then
-       Sunscreens sunscreens = new Sunscreens(driver);
-        //// Adding low price spf 30 cream
+    }
+
+    @When("User adds cheapest products into the cart")
+    public void user_adds_cheapest_products_into_the_cart() {
+        Sunscreens sunscreens = new Sunscreens(driver);
+        sunscreens.addLowPriceSpf30(driver);
+        sunscreens.addLowPriceSpf50(driver);
+        sunscreens.clickAddToCartButton(driver);
+    }
+
+    @Then("Cart should be populated correctly")
+    public void cart_should_be_populated_correctly() {
+        Sunscreens sunscreens = new Sunscreens(driver);
         sunscreens.addLowPriceSpf30(driver);
         //// Adding low price spf 30 cream
         sunscreens.addLowPriceSpf50(driver);
@@ -33,6 +44,11 @@ public class TemperatureTests {
         sunscreens.clickAddToCartButton(driver);
         Checkout checkout = new Checkout(driver);
         checkout.checkIfPopulatedCorrectly(driver);
+    }
+
+    @Then("Checkout should be successful")
+    public void checkout_should_be_successful() {
+        Checkout checkout = new Checkout(driver);
         Checkout.clickPayButton(driver);
         checkout.enterEmail("icheetah1999@gmail.com",driver);
         checkout.enterCardNumber("4242",driver);
@@ -45,16 +61,6 @@ public class TemperatureTests {
         checkout.enterZipcode("35004",driver);
         checkout.clickSubmitButton(driver);
 
-    }
-
-
-    public static void main(String arg[]){
-        // creating instant of TemperatureTest
-        TemperatureTests testing = new TemperatureTests();
-        testing.launchBrowser();
-        testing.startTest();
 
     }
-
-
 }

@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static weatherApplication.Locators.iframeNameAttribute;
+import java.util.ArrayList;
+
 import static weatherApplication.actions.ActionsOnCheckoutPage.*;
+import static weatherApplication.tasks.Sunscreens.displaySelectedItem;
 
 public class Checkout {
     private  WebDriver driver;
@@ -31,7 +33,7 @@ public class Checkout {
 
     public void enterEmail(String text,WebDriver driver) {
         switchtoEditArea();
-        typeEmail( text, driver);
+        driver.findElement(By.id("email")).sendKeys(text); ;
         switchtoMainArea();
     }
 
@@ -82,7 +84,31 @@ public class Checkout {
     }
 
 
+    public ArrayList<String> checkItems() {
 
+        ArrayList<WebElement> items = (ArrayList<WebElement>) driver.findElements(By.xpath("//td[ contains (text(),'SPF') or contains (text(),'spf')]"));
+        ArrayList<String> list = new ArrayList<>();
+        System.out.println("the final list is");
+        for (WebElement i : items) {
+            String str= i.getText();
+            list.add(str);
+        }
+        System.out.println(list);
+        return list;
+    }
+
+
+
+    public void checkIfPopulatedCorrectly(WebDriver driver)
+    {
+        ArrayList<String> s1 = checkItems();
+        ArrayList<String> s2 = displaySelectedItem( driver);
+        boolean boolval = s1.equals(s2); //returns true because lists are equal
+        System.out.println("Cart is populated correctly so " + boolval);
+
+
+
+    }
 
 
 

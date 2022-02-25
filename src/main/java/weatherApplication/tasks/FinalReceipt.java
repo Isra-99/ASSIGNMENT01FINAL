@@ -7,8 +7,10 @@ public class FinalReceipt {
     ///Creating FinalReceipt constructor
     public FinalReceipt (WebDriver d){
         this.driver = d;
-        System.out.println("GOT THE RECEIPT!!!!");
 
+    }
+    public void display() {
+        System.out.println("GOT THE RECEIPT!!!!");
     }
 
 }

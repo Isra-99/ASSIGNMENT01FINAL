@@ -11,43 +11,45 @@ import static weatherApplication.Locators.*;
 public class ActionsOnSunscreenPage {
 
     //Method of getting price value of the least expensive cream
-    private static int minValue(int[] arr) {
-        int min = arr[0];
-        for (int ktr = 1; ktr < arr.length; ktr++) {
-            if (arr[ktr] < min) {
-                min = arr[ktr];
+    private static int minValue( ArrayList<Integer> arr) {
+        int min = arr.get(0);
+        for (int ktr = 1; ktr < arr.size(); ktr++) {
+            if (arr.get(ktr) < min) {
+                min = arr.get(ktr);
             }
         }
         return min;
     }
     //Method of clicking the least expensive spf-30 cream
-    public static  void clickLowPriceSpf30(WebDriver driver) {
-        ArrayList<WebElement> list  = listOfSpf30Creams(driver);
-        int[] intArray = new int[0];
-        for (WebElement lists : list) {
-            String textList = lists.getText();
+    public static  int clickLowPriceSpf30(WebDriver driver) {
+        ArrayList<WebElement> list = listOfSpf30Creams(driver);
+        ArrayList<Integer> intArray = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            String textList = list.get(i).getText();
             String str = textList.replaceAll("[^0-9]", "");
             int prices = Integer.parseInt(str);
-            intArray = new int[]{prices};
+            intArray.add(prices);
         }
         int minimum;
         minimum = minValue(intArray);
-        lowPricebutton(minimum,driver).click();
+        lowPricebutton(minimum, driver).click();
+        return minimum;
 
     }
     //Method of clicking the least expensive spf-50 cream
-    public static void clickLowPriceSpf50(WebDriver driver) {
+    public static int clickLowPriceSpf50(WebDriver driver) {
         ArrayList<WebElement> list  = listOfSpf50Creams( driver);
-        int[] intArray = new int[0];
+        ArrayList<Integer> intArray = new ArrayList<>();
         for (WebElement lists : list) {
             String textList = lists.getText();
             String str = textList.replaceAll("[^0-9]", "");
             int prices = Integer.parseInt(str);
-            intArray = new int[]{prices};
+            intArray.add(prices);
         }
         int minimum;
         minimum = minValue(intArray);
         lowPricebutton(minimum,driver).click();
+        return  minimum;
 
 
     }

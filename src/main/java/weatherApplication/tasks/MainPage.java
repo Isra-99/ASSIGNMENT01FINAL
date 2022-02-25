@@ -43,6 +43,10 @@ public class MainPage {
         clickingOnMainPage.clickSunscreenButton(driver);
         return new Moistures(driver);
     }
+     public void readTemperature (){
+         String temperature_text =  Locators.currentTemperature(driver).getText();
+         System.out.println(temperature_text);
+     }
 
 
 }
